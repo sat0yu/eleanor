@@ -38,6 +38,7 @@ gem 'graphql'
 gem 'rack-cors'
 
 gem 'sidekiq'
+gem 'redis-namespace'
 
 gem 'aws-sdk'
 
