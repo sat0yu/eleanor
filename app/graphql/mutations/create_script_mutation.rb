@@ -10,6 +10,7 @@ Mutations::CreateScriptMutation = GraphQL::Relay::Mutation.define do
       title: inputs.scriptInput.title,
       body:  inputs.scriptInput.body
     )
+    CreateSpeechWorker.perform_async(script.reload.id)
 
     { script: script }
   }
