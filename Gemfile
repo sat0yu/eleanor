@@ -66,6 +66,12 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-sidekiq'
+  gem 'capistrano3-unicorn'
+end
+
+group :production, :staging do
+  gem 'unicorn'
+  gem 'unicorn-worker-killer'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

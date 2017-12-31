@@ -7,8 +7,8 @@ set :branch, ENV['DEPLOY_BRANCH'] || 'master'
 set :keep_releases, 3
 set :pty, true
 
-append :linked_files, "config/database.yml", "config/secrets.yml", "config/secrets.yml.key"
-append :linked_dirs, "log", "tmp"
+set :linked_files, %w{config/database.yml config/secrets.yml config/secrets.yml.key}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets bundle public/system public/assets}
 
 set :rbenv_type,     :system
 set :rbenv_ruby,     "2.5.0"
@@ -16,6 +16,9 @@ set :rbenv_path,     "/opt/rbenv"
 set :rbenv_prefix,   "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles,    :all
+
+set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
+set :unicorn_config_path, "#{current_path}/config/unicorn.rb"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -27,6 +30,12 @@ set :rbenv_roles,    :all
 # set :ssh_options, verify_host_key: :secure
 
 namespace :deploy do
+  after 'deploy:publishing', :restart
+  desc 'restart application'
+  task :restart do
+    invoke 'unicorn:restart'
+  end
+
   before 'deploy:check:linked_files', :secrets_yml
   desc "Upload secrets.yml to the shared/config directory."
   task :secrets_yml do
