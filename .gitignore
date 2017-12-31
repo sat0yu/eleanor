@@ -50,6 +50,7 @@ build-iPhoneSimulator/
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
-# Ignore encrypted secrets key file.
+# Ignore secrets files
+config/database.yml
 config/secrets.yml
 config/secrets.yml.key
