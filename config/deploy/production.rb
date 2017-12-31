@@ -1,3 +1,13 @@
+raise 'missing DEPLOY_HOST'unless DEPLOY_HOST = ENV['DEPLOY_HOST']
+
+set :user, :webmanager
+
+server DEPLOY_HOST, user: "webmanager", roles: %w{app}
+
+role :app, %W(webmanager@#{DEPLOY_HOST})
+
+set :ssh_options, :forward_agent => true
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
