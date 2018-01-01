@@ -2,9 +2,10 @@ raise 'missing DEPLOY_HOST'unless DEPLOY_HOST = ENV['DEPLOY_HOST']
 
 set :user, :webmanager
 
-server DEPLOY_HOST, user: "webmanager", roles: %w{app}
+server DEPLOY_HOST, user: "webmanager", roles: %w{app db}
 
 role :app, %W(webmanager@#{DEPLOY_HOST})
+role :db, %W(webmanager@#{DEPLOY_HOST})
 
 set :ssh_options, :forward_agent => true
 
