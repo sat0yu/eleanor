@@ -36,27 +36,13 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 
-  before 'deploy:check:linked_files', :secrets_yml
-  desc "Upload secrets.yml to the shared/config directory."
-  task :secrets_yml do
+  before 'deploy:check:linked_files', :upload_linked_files
+  desc "Upload linked_files to the shared/config directory."
+  task :upload_linked_files do
     on roles(:app) do
-      upload! "config/secrets.yml", "#{shared_path}/config/secrets.yml"
-    end
-  end
-
-  before 'deploy:check:linked_files', :secrets_yml_key
-  desc "Upload secrets.yml.key to the shared/config directory."
-  task :secrets_yml_key do
-    on roles(:app) do
+      upload! "config/database.yml",    "#{shared_path}/config/database.yml"
+      upload! "config/secrets.yml",     "#{shared_path}/config/secrets.yml"
       upload! "config/secrets.yml.key", "#{shared_path}/config/secrets.yml.key"
-    end
-  end
-
-  before 'deploy:check:linked_files', :database_yml
-  desc "Upload database.yml to the shared/config directory."
-  task :database_yml do
-    on roles(:app) do
-      upload! "config/database.yml", "#{shared_path}/config/database.yml"
     end
   end
 end
