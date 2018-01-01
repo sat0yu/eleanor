@@ -1,5 +1,8 @@
 raise 'missing DEPLOY_HOST'unless DEPLOY_HOST = ENV['DEPLOY_HOST']
 
+set :rails_env, "production"
+set :unicorn_rack_env, "production"
+
 set :user, :webmanager
 
 server DEPLOY_HOST, user: "webmanager", roles: %w{app db}
