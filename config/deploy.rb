@@ -5,7 +5,7 @@ set :application, "eleanor"
 set :repo_url, "git@github.com:sat0yu/eleanor.git"
 set :branch, ENV['DEPLOY_BRANCH'] || 'master'
 set :keep_releases, 3
-set :pty, true
+set :pty, false
 
 set :linked_files, %w{config/database.yml config/secrets.yml config/secrets.yml.key}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets bundle public/system public/assets}
@@ -19,6 +19,8 @@ set :rbenv_roles,    :all
 
 set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 set :unicorn_config_path, "#{current_path}/config/unicorn.rb"
+
+set :sidekiq_role, :app
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
