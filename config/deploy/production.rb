@@ -5,9 +5,10 @@ set :unicorn_rack_env, "production"
 
 set :user, :webmanager
 
-server DEPLOY_HOST, user: "webmanager", roles: %w{app db}
+server DEPLOY_HOST, user: "webmanager", roles: %w{app web db}
 
 role :app, %W(webmanager@#{DEPLOY_HOST})
+role :web, %W(webmanager@#{DEPLOY_HOST})
 role :db, %W(webmanager@#{DEPLOY_HOST})
 
 set :ssh_options, :forward_agent => true
