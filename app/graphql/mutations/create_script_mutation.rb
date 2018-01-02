@@ -7,8 +7,9 @@ Mutations::CreateScriptMutation = GraphQL::Relay::Mutation.define do
 
   resolve ->(_obj, inputs, _ctx) {
     script = Script.create!(
-      title: inputs.scriptInput.title,
-      body:  inputs.scriptInput.body
+      title:       inputs.scriptInput.title,
+      description: inputs.scriptInput.description,
+      body:        inputs.scriptInput.body
     )
     CreateSpeechWorker.perform_async(script.reload.id)
 
