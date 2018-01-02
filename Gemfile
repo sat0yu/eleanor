@@ -67,6 +67,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-sidekiq'
   gem 'capistrano3-unicorn'
+  gem 'capistrano-rails-console'
 end
 
 group :production, :staging do
