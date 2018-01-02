@@ -28,17 +28,18 @@ RSpec.describe Script, type: :model do
       context 'when larger than 1B and smaller than 128KB' do
         it{ expect( build(:script, description: 'description').validate ).to be_truthy }
       end
-    end
 
-    context 'error cases' do
       context 'when given nil' do
-        it{ expect( build(:script, description: nil).validate ).to be_falsey }
+        it{ expect( build(:script, description: nil).validate ).to be_truthy }
       end
 
       context 'when given empty' do
-        it{ expect( build(:script, description: '').validate ).to be_falsey }
+        it{ expect( build(:script, description: '').validate ).to be_truthy }
       end
 
+    end
+
+    context 'error cases' do
       context 'when given larger than 128KB' do
         it{ expect( build(:script, description: 'a' + 'a' * 128.kilobytes).validate ).to be_falsey }
       end
