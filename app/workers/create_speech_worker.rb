@@ -16,7 +16,7 @@ class CreateSpeechWorker
     remove_files("#{file_path}*")
 
     ActiveRecord::Base.transaction do
-      Speech.create!(script_id: script.id, url: object.public_url)
+      Speech.create!(script_id: script.id, url: object.public_url, size: object.content_length)
       script.touch
     end
   end
