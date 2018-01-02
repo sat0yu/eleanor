@@ -19,6 +19,7 @@
 
     <div class="actions">
       <p><%= form.text_field :title, placeholder: 'title (≤ 1KB)', style: "width: 100%" %></p>
+      <p><%= form.text_field :description, placeholder: 'description (≤ 28KB)', style: "width: 100%" %></p>
       <div><%= form.text_area :body , placeholder: 'body (≤ 4MB)', style: "width: 100%" %></div>
       <p><%= form.submit %></p>
     </div>
@@ -28,14 +29,19 @@
     <tbody>
       <tr>
         <th>title</th>
+        <th>description</th>
         <th>body</th>
+        <th>length</th>
         <th>link</th>
+        <th>size</th>
         <th>create</th>
       </tr>
       <% @scripts.each do |script| %>
         <tr>
-          <td><%= script.title.truncate(32) %></td>
-          <td><%= script.body.truncate(32) %></td>
+          <td><%= script.title.truncate(16) %></td>
+          <td><%= script.description&.truncate(16) %></td>
+          <td><%= script.body&.truncate(16) %></td>
+          <td><%= script.length %></td>
           <td>
             <% speech_url = script.speech&.url %>
             <% if speech_url.present? %>
@@ -44,6 +50,7 @@
               -
             <% end %>
           </td>
+          <td><%= number_to_human_size(script.speech&.size || 0) %></td>
           <td><%= script.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         </tr>
       <% end %>
