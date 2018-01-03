@@ -8,7 +8,8 @@ set :keep_releases, 3
 set :pty, false
 
 set :linked_files, %w{config/database.yml config/secrets.yml config/secrets.yml.key}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets bundle public/system public/assets}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets bundle public/system public/assets}
+set :bundle_binstubs, -> { shared_path.join('bin') }
 
 set :rbenv_type,     :system
 set :rbenv_ruby,     "2.5.0"
